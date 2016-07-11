@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="Unit\Grid\GameGridTests.cs" />
     <Compile Include="Unit\Validators\BaseGameVictoryValidatorTests.cs" />
-    <Compile Include="Unit\Validators\DiagonalGameDownAndRightVictoryValidatorTests.cs" />
+    <Compile Include="Unit\Validators\DiagonalGameVictoryValidatorTests.cs" />
     <Compile Include="Unit\Validators\GridCreationValidatorTests.cs" />
     <Compile Include="Unit\Validators\VerticalVictoryValidatorTests.cs" />
     <Compile Include="Unit\Validators\HorizontalVictoryValidatorTests.cs" />

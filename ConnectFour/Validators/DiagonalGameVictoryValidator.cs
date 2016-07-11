@@ -8,7 +8,7 @@ namespace ConnectFour.Validators
     {
         public bool Validate(GameGrid gameGrid, Players player)
         {
-            return ValidateDownAndRight(gameGrid, player) || ValidateDownAndLeft(gameGrid, player);
+            return ValidateDownAndRight(gameGrid, player);
         }
 
         /// <summary>
@@ -19,23 +19,27 @@ namespace ConnectFour.Validators
         /// <returns></returns>
         private bool ValidateDownAndRight(GameGrid gameGrid, Players player)
         {
-            throw new System.NotImplementedException();
+            var grid = gameGrid.Grid;
 
-            /*for (i = 0; i < 3; i++)
+            // We want to ALWAYS do 3 at max?
+            for (var i = 0; i < gameGrid.Rows - 3; i++)
             {
-                for (j = 0; j < 3; j++)
+                for (var j = 0; j < gameGrid.Columns - 3; j++)
                 {
-                    temp[0] = gameBoard[i][j];
-                    temp[1] = gameBoard[i + 1][j + 1];
-                    temp[2] = gameBoard[i + 2][j + 2];
-                    temp[3] = gameBoard[i + 3][j + 3];
-                    done = checksForWin(temp);
-                    if (done)
-                    {
-                        return done;
-                    }
+                    var token1 = grid[i][j];
+                    var token2 = grid[i + 1][j + 1];
+                    var token3 = grid[i + 2][j + 2];
+                    var token4 = grid[i + 3][j + 3];
+
+                    if (token1 == player
+                        && token2 == player
+                        && token3 == player
+                        && token4 == player)
+                        return true;
                 }
-            }*/
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -46,20 +50,22 @@ namespace ConnectFour.Validators
         /// <returns></returns>
         private bool ValidateDownAndLeft(GameGrid gameGrid, Players player)
         {
+            var grid = gameGrid.Grid;
             throw new System.NotImplementedException();
             /*for (i = 5; i > 3; i--)
             {
                 for (j = 0; j < 3; j++)
                 {
-                    temp[0] = gameBoard[i][j];
-                    temp[1] = gameBoard[i - 1][j + 1];
-                    temp[2] = gameBoard[i - 2][j + 2];
-                    temp[3] = gameBoard[i - 3][j + 3];
-                    done = checksForWin(temp);
-                    if (done)
-                    {
-                        return done;
-                    }
+                    var token1 = grid[i][j];
+                    var token2 = grid[i - 1][j + 1];
+                    var token3 = grid[i - 2][j + 2];
+                    var token4 = grid[i - 3][j + 3];
+                    
+                    if (token1 == player
+                        && token2 == player
+                        && token3 == player
+                        && token4 == player)
+                        return true;
                 }
             }*/
         }
@@ -72,22 +78,23 @@ namespace ConnectFour.Validators
         /// <returns></returns>
         private bool ValidateUpAndRight(GameGrid gameGrid, Players player)
         {
+            var grid = gameGrid.Grid;
             throw new System.NotImplementedException();
-            
+
             /*for (i = 0; i < 3; i++)
             {
                 for (j = 6; j > 2; j--)
                 {
-                    temp[0] = gameBoard[i][j];
-                    temp[1] = gameBoard[i + 1][j - 1];
-                    temp[2] = gameBoard[i + 2][j - 2];
-                    temp[3] = gameBoard[i + 3][j - 3];
-                    done = checksForWin(temp);
-                    if (done)
-                    {
-                        return done;
-                    }
-                }
+                    var token1 = grid[i][j];
+                    var token2 = grid[i + 1][j - 1];
+                    var token3 = grid[i + 2][j - 2];
+                    var token4 = grid[i + 3][j - 3];
+
+                    if (token1 == player
+                        && token2 == player
+                        && token3 == player
+                        && token4 == player)
+                        return true;                }
             }*/
         }
 
@@ -99,20 +106,22 @@ namespace ConnectFour.Validators
         /// <returns></returns>
         private bool ValidateUpAndLeft(GameGrid gameGrid, Players player)
         {
+            var grid = gameGrid.Grid;
             throw new System.NotImplementedException();
-            /*for (i = 5; i > 3; i--)
+            /*for (var i = 5; i > 3; i--)
             {
-                for (j = 6; j > 2; j--)
+                for (var j = 6; j > 2; j--)
                 {
-                    temp[0] = gameBoard[i][j];
-                    temp[1] = gameBoard[i - 1][j - 1];
-                    temp[2] = gameBoard[i - 2][j - 2];
-                    temp[3] = gameBoard[i - 3][j - 3];
-                    done = checksForWin(temp);
-                    if (done)
-                    {
-                        return done;
-                    }
+                    var token1 = grid[i][j];
+                    var token2 = grid[i - 1][j - 1];
+                    var token3 = grid[i - 2][j - 2];
+                    var token4 = grid[i - 3][j - 3];
+                    
+                    if (token1 == player
+                        && token2 == player
+                        && token3 == player
+                        && token4 == player)
+                        return true;
                 }
             }*/
         }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using ConnectFour.Constants;
-using ConnectFour.DataModel;
 using ConnectFour.Validators;
 using NUnit.Framework;
 
@@ -11,8 +8,6 @@ namespace ConnectFourTests.Unit.Validators
     [TestFixture]
     public class HorizontalVictoryValidatorTests : BaseGameVictoryValidatorTests
     {
-        private IGameVictoryValidator m_GameVictoryValidator;
-
         [SetUp]
         public void Setup()
         {

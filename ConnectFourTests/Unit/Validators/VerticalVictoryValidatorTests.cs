@@ -10,8 +10,6 @@ namespace ConnectFourTests.Unit.Validators
     [TestFixture]
     public class VerticalVictoryValidatorTests : BaseGameVictoryValidatorTests
     {
-        private IGameVictoryValidator m_GameVictoryValidator;
-
         [SetUp]
         public void Setup()
         {

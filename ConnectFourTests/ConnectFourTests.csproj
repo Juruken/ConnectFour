@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Unit\Grid\GameGridTests.cs" />
     <Compile Include="Unit\Validators\GridCreationValidatorTests.cs" />
+    <Compile Include="Unit\Validators\VerticalVictoryValidatorTests.cs" />
     <Compile Include="Unit\Validators\HorizontalVictoryValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

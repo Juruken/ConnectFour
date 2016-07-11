@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using ConnectFour.Constants;
 using ConnectFour.DataModel;
@@ -9,7 +8,7 @@ using NUnit.Framework;
 namespace ConnectFourTests.Unit.Validators
 {
     [TestFixture]
-    public class HorizontalVictoryValidatorTests
+    public class VerticalVictoryValidatorTests
     {
         private IGameVictoryValidator m_GameVictoryValidator;
         private Players m_WinningPlayer = Players.Yellow;
@@ -19,27 +18,26 @@ namespace ConnectFourTests.Unit.Validators
         public void Setup()
         {
             // TODO: Determine if we want to inject a gameGridProvider
-            m_GameVictoryValidator = new HorizontalGameVictoryValidator();
+            m_GameVictoryValidator = new VerticalGameVictoryValidator();
         }
 
-        [Test, TestCaseSource(typeof(HorizontalVictoryTestDataProvider), "GetVictoryDetectedTestCases")]
+        [Test, TestCaseSource(typeof(VerticalVictoryTestDataProvider), "GetVictoryDetectedTestCases")]
         public void TestVictoryDetected(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
             var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
-
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsTrue(result);
         }
 
-        [Test, TestCaseSource(typeof(HorizontalVictoryTestDataProvider), "GetVictoryDetectedTestCases")]
+        [Test, TestCaseSource(typeof(VerticalVictoryTestDataProvider), "GetVictoryDetectedTestCases")]
         public void TestVictoryNotDetectedForLosingPlayer(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
             var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
-            var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
+            var result = m_GameVictoryValidator.Validate(gameGrid, m_LosingPlayer);
             Assert.IsFalse(result);
         }
 
-        [Test, TestCaseSource(typeof(HorizontalVictoryTestDataProvider), "GetVictoryNotDetectedTestCases")]
+        [Test, TestCaseSource(typeof(VerticalVictoryTestDataProvider), "GetVictoryNotDetectedTestCases")]
         public void TestVictoryNotDetected(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
             var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
@@ -70,17 +68,12 @@ namespace ConnectFourTests.Unit.Validators
     }
 }
 
-public class HorizontalVictoryTestDataProvider
+public class VerticalVictoryTestDataProvider
 {
     public static IEnumerable GetVictoryDetectedTestCases
     {
         get
         {
-            throw new NotImplementedException();
-
-            // TODO: UPDATE THIS... currently testing for VERTICAL VICTORY...not horizontal.
-            // TODO: Make it test ROWS!
-
             yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 0 })
                 .SetDescription("This should detect a victory in the first column for rows 0-3");
 
@@ -117,8 +110,6 @@ public class HorizontalVictoryTestDataProvider
     {
         get
         {
-            throw new NotImplementedException();
-
             yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2 }, new List<int> { 0 })
                 .SetDescription("This should not detect a victory in the first column for rows 0-3");
         }

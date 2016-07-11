@@ -47,6 +47,7 @@
     <Compile Include="Validators\HorizontalGameVictoryValidator.cs" />
     <Compile Include="Validators\IGameVictoryValidator.cs" />
     <Compile Include="Validators\IGridCreationValidator.cs" />
+    <Compile Include="Validators\VerticalGameVictoryValidator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

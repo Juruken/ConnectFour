@@ -35,7 +35,7 @@ namespace ConnectFourTests.Unit.Validators
         public void TestVictoryNotDetectedForLosingPlayer(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
             var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
-            var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
+            var result = m_GameVictoryValidator.Validate(gameGrid, m_LosingPlayer);
             Assert.IsFalse(result);
         }
 
@@ -72,54 +72,58 @@ namespace ConnectFourTests.Unit.Validators
 
 public class HorizontalVictoryTestDataProvider
 {
+    private static List<int> columns0Through3 = new List<int> { 0, 1, 2, 3 };
+    private static List<int> columns1Through4 = new List<int> { 1, 2, 3, 4 };
+
     public static IEnumerable GetVictoryDetectedTestCases
     {
         get
         {
-            throw new NotImplementedException();
-
             // TODO: UPDATE THIS... currently testing for VERTICAL VICTORY...not horizontal.
-            // TODO: Make it test ROWS!
+            // TODO: Make it test columns!
+            yield return new TestCaseData(5, 5, new List<int> { 0 }, columns0Through3)
+                .SetDescription("This should detect a victory in the first row for columns 0-3");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 0 })
-                .SetDescription("This should detect a victory in the first column for rows 0-3");
+            yield return new TestCaseData(5, 5, new List<int> { 0 }, columns1Through4)
+                .SetDescription("This should detect a victory in the first row for columns 1-4");
 
-            yield return new TestCaseData(5, 5, new List<int> { 1, 2, 3, 4}, new List<int> { 0 })
-                .SetDescription("This should detect a victory in the first column for rows 1-4");
+            yield return new TestCaseData(5, 5, new List<int> { 1 }, columns0Through3)
+                .SetDescription("This should detect a victory in the second row for columns 0-3");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 1 })
-                .SetDescription("This should detect a victory in the second column for rows 0-3");
+            yield return new TestCaseData(5, 5, new List<int> { 1 }, columns1Through4)
+                .SetDescription("This should detect a victory in the second row for columns 1-4");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 1 })
-                .SetDescription("This should detect a victory in the second column for rows 1-4");
+            yield return new TestCaseData(5, 5, new List<int> { 2}, columns0Through3)
+                .SetDescription("This should detect a victory in the third row for columns 0-3");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 2 })
-                .SetDescription("This should detect a victory in the third column for rows 0-3");
+            yield return new TestCaseData(5, 5, new List<int> { 2}, columns1Through4)
+                .SetDescription("This should detect a victory in the third row for columns 1-4");
 
-            yield return new TestCaseData(5, 5, new List<int> { 1, 2, 3, 4 }, new List<int> { 2 })
-                .SetDescription("This should detect a victory in the third column for rows 1-4");
+            yield return new TestCaseData(5, 5, new List<int> { 3}, columns0Through3)
+                .SetDescription("This should detect a victory in the fourth row for columns 0-3");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 3 })
-                .SetDescription("This should detect a victory in the fourth column for rows 0-3");
+            yield return new TestCaseData(5, 5, new List<int> { 3 }, columns1Through4)
+                .SetDescription("This should detect a victory in the fourth row for columns 1-4");
 
-            yield return new TestCaseData(5, 5, new List<int> { 1, 2, 3, 4 }, new List<int> { 3 })
-                .SetDescription("This should detect a victory in the fourth column for rows 1-4");
+            yield return new TestCaseData(5, 5, new List<int> { 4 }, columns0Through3)
+                .SetDescription("This should detect a victory in the fifth row for columns 0-3");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2, 3 }, new List<int> { 4 })
-                .SetDescription("This should detect a victory in the fifth column for rows 0-3");
-
-            yield return new TestCaseData(5, 5, new List<int> { 1, 2, 3, 4 }, new List<int> { 4 })
-                .SetDescription("This should detect a victory in the fifth column for rows 1-4");
+            yield return new TestCaseData(5, 5, new List<int> { 4 }, columns1Through4)
+                .SetDescription("This should detect a victory in the fifth row for columns 1-4");
         }
     }
+
+    private static List<int> columns0Through2 = new List<int> { 0, 1, 2 };
+    private static List<int> columns1Through3 = new List<int> { 1, 2, 3 };
 
     public static IEnumerable GetVictoryNotDetectedTestCases
     {
         get
         {
-            throw new NotImplementedException();
+            yield return new TestCaseData(5, 5, new List<int> { 0 }, columns0Through2)
+                .SetDescription("This should not detect a victory in the first column for rows 0-3");
 
-            yield return new TestCaseData(5, 5, new List<int> { 0, 1, 2 }, new List<int> { 0 })
+            yield return new TestCaseData(5, 5, new List<int> { 0 }, columns1Through3)
                 .SetDescription("This should not detect a victory in the first column for rows 0-3");
         }
     }

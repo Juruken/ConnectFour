@@ -8,7 +8,8 @@ namespace ConnectFour.Validators
     {
         public bool Validate(GameGrid gameGrid, Players player)
         {
-            return ValidateDownAndRight(gameGrid, player);
+            return ValidateDownAndRight(gameGrid, player)
+                || ValidateDownAndLeft(gameGrid, player);
         }
 
         /// <summary>
@@ -51,10 +52,13 @@ namespace ConnectFour.Validators
         private bool ValidateDownAndLeft(GameGrid gameGrid, Players player)
         {
             var grid = gameGrid.Grid;
-            throw new System.NotImplementedException();
-            /*for (i = 5; i > 3; i--)
+            
+            // Start at the highest row
+            for (var i = gameGrid.Rows - 1 ; i > 3; i--)
             {
-                for (j = 0; j < 3; j++)
+                // Why only 3?
+                // TODO: Figure out... how high to go..
+                for (var j = 0; j < gameGrid.Columns - 3; j++)
                 {
                     var token1 = grid[i][j];
                     var token2 = grid[i - 1][j + 1];
@@ -67,7 +71,9 @@ namespace ConnectFour.Validators
                         && token4 == player)
                         return true;
                 }
-            }*/
+            }
+
+            return false;
         }
 
         /// <summary>

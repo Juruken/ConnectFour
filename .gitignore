@@ -1,0 +1,6 @@
+*/packages/*
+*/obj/*
+*/bin/*
+/packages
+/.vs
+/ConnectFour/.vs/ConnectFour/v14/*.suo

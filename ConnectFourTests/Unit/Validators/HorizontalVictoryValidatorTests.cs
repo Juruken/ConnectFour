@@ -9,11 +9,9 @@ using NUnit.Framework;
 namespace ConnectFourTests.Unit.Validators
 {
     [TestFixture]
-    public class HorizontalVictoryValidatorTests
+    public class HorizontalVictoryValidatorTests : BaseGameVictoryValidatorTests
     {
         private IGameVictoryValidator m_GameVictoryValidator;
-        private Players m_WinningPlayer = Players.Yellow;
-        private Players m_LosingPlayer = Players.Red;
 
         [SetUp]
         public void Setup()
@@ -45,27 +43,6 @@ namespace ConnectFourTests.Unit.Validators
             var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsFalse(result);
-        }
-
-        private GameGrid CreateGameGrid(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
-        {
-            var gameGrid = new GameGrid(rows, columns);
-
-            for (var i = 0; i < rows; i++)
-            {
-                if (!rowsToPopulate.Contains(i))
-                    continue;
-
-                for (var j = 0; j < columns; j++)
-                {
-                    if (columnsToPopulate.Contains(j))
-                    {
-                        gameGrid.Grid[i][j] = m_WinningPlayer;
-                    }
-                }
-            }
-
-            return gameGrid;
         }
     }
 }

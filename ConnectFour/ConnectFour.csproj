@@ -44,8 +44,8 @@
     <Compile Include="DataModel\GameGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\GridCreationValidator.cs" />
-    <Compile Include="Validators\HorizontalGameValidator.cs" />
-    <Compile Include="Validators\IGameValidator.cs" />
+    <Compile Include="Validators\HorizontalGameVictoryValidator.cs" />
+    <Compile Include="Validators\IGameVictoryValidator.cs" />
     <Compile Include="Validators\IGridCreationValidator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

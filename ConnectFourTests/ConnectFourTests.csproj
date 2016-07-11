@@ -62,11 +62,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Unit\Grid\GameGridTests.cs" />
+    <Compile Include="Unit\Validators\GridCreationValidatorTests.cs" />
+    <Compile Include="Unit\Validators\HorizontalVictoryValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectFour\ConnectFour.csproj">
+      <Project>{7E77BA99-4015-47ED-A174-78978DA14818}</Project>
+      <Name>ConnectFour</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

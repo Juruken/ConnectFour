@@ -8,19 +8,13 @@ namespace ConnectFour.Validators
     {
         public bool Validate(GameGrid gameGrid, Players player)
         {
-            return ValidateDownAndRight(gameGrid, player)
-                || ValidateUpAndRight(gameGrid, player)
+            return ValidateFromBottomLeft(gameGrid, player)
+                || ValidateFromTopLeft(gameGrid, player)
                 || ValidateDownAndLeft(gameGrid, player)
                 || ValidateUpAndLeft(gameGrid, player);
         }
-
-        /// <summary>
-        /// Check for diagonal win, going down and right
-        /// </summary>
-        /// <param name="gameGrid"></param>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        private bool ValidateDownAndRight(GameGrid gameGrid, Players player)
+        
+        private bool ValidateFromBottomLeft(GameGrid gameGrid, Players player)
         {
             var grid = gameGrid.Grid;
 
@@ -44,13 +38,7 @@ namespace ConnectFour.Validators
             return false;
         }
         
-        /// <summary>
-        /// Check for diagonal win, going up and right (starting bottom left)
-        /// </summary>
-        /// <param name="gameGrid"></param>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        private bool ValidateUpAndRight(GameGrid gameGrid, Players player)
+        private bool ValidateFromTopLeft(GameGrid gameGrid, Players player)
         {
             var grid = gameGrid.Grid;
 
@@ -74,7 +62,7 @@ namespace ConnectFour.Validators
             return false;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Check for diagonal win, going down and left (starting far right)
         /// </summary>
         /// <param name="gameGrid"></param>
@@ -134,6 +122,6 @@ namespace ConnectFour.Validators
             }
             
              return false;
-        }
+        }*/
     }
 }

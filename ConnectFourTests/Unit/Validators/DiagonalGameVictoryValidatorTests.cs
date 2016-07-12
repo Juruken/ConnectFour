@@ -15,7 +15,7 @@ namespace ConnectFourTests.Unit.Validators
             m_GameVictoryValidator = new DiagonalGameVictoryValidator();
         }
 
-        [Test, TestCaseSource(typeof(DiagonalDownAndRightVictoryTestDataProvider), "GetUpAndRight")]
+        [Test, TestCaseSource(typeof(DiagonalDownAndRightVictoryTestDataProvider), "BottomLeftTestCases")]
         public void TestVictoryDetectedDownAndRight(int rows, int columns, List<Tuple<int,int>> rowColumnToPopulate)
         {
             var gameGrid = CreateGameGrid(rows, columns, rowColumnToPopulate);
@@ -23,20 +23,19 @@ namespace ConnectFourTests.Unit.Validators
             Assert.IsTrue(result);
         }
 
-        [Test, TestCaseSource(typeof(DiagonalDownAndRightVictoryTestDataProvider), "GetDownAndRight")]
-        public void TestVictoryDetectedDownAndLeft(int rows, int columns, List<Tuple<int, int>> rowColumnToPopulate)
+        [Test, TestCaseSource(typeof(DiagonalDownAndRightVictoryTestDataProvider), "TopLeftTestCases")]
+        public void TestVictoryDetectedUpAndRight(int rows, int columns, List<Tuple<int, int>> rowColumnToPopulate)
         {
             var gameGrid = CreateGameGrid(rows, columns, rowColumnToPopulate);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsTrue(result);
         }
-
     }
 }
 
 public class DiagonalDownAndRightVictoryTestDataProvider
 {
-    public static IEnumerable GetUpAndRight
+    public static IEnumerable BottomLeftTestCases
     {
         get
         {
@@ -75,7 +74,7 @@ public class DiagonalDownAndRightVictoryTestDataProvider
         }
     }
 
-    public static IEnumerable GetDownAndRight
+    public static IEnumerable TopLeftTestCases
     {
         get
         {

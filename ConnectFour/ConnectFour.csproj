@@ -42,11 +42,15 @@
   <ItemGroup>
     <Compile Include="Constants\Players.cs" />
     <Compile Include="DataModel\GameGrid.cs" />
+    <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\DiagonalGameVictoryValidator.cs" />
+    <Compile Include="Validators\IMoveValidator.cs" />
+    <Compile Include="Validators\MoveValidator.cs" />
+    <Compile Include="Validators\ValidMovesRemainingValidator.cs" />
     <Compile Include="Validators\GridCreationValidator.cs" />
     <Compile Include="Validators\HorizontalGameVictoryValidator.cs" />
-    <Compile Include="Validators\IGameVictoryValidator.cs" />
+    <Compile Include="Validators\IGameValidator.cs" />
     <Compile Include="Validators\IGridCreationValidator.cs" />
     <Compile Include="Validators\VerticalGameVictoryValidator.cs" />
   </ItemGroup>

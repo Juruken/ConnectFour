@@ -3,7 +3,7 @@ using ConnectFour.DataModel;
 
 namespace ConnectFour.Validators
 {
-    public interface IGameVictoryValidator
+    public interface IGameValidator
     {
         bool Validate(GameGrid gameGrid, Players player);
     }

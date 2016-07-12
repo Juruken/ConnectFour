@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using ConnectFour.Constants;
-using ConnectFour.DataModel;
 using ConnectFour.Validators;
 using NUnit.Framework;
 

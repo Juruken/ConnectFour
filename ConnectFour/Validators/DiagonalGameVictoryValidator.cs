@@ -1,17 +1,14 @@
-﻿using System.Runtime.InteropServices;
-using ConnectFour.Constants;
+﻿using ConnectFour.Constants;
 using ConnectFour.DataModel;
 
 namespace ConnectFour.Validators
 {
-    public class DiagonalGameVictoryValidator : IGameVictoryValidator
+    public class DiagonalGameVictoryValidator : IGameValidator
     {
         public bool Validate(GameGrid gameGrid, Players player)
         {
             return ValidateFromBottomLeft(gameGrid, player)
-                || ValidateFromTopLeft(gameGrid, player)
-                || ValidateDownAndLeft(gameGrid, player)
-                || ValidateUpAndLeft(gameGrid, player);
+                   || ValidateFromTopLeft(gameGrid, player);
         }
         
         private bool ValidateFromBottomLeft(GameGrid gameGrid, Players player)

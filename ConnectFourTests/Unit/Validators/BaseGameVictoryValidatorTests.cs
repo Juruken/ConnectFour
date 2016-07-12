@@ -8,7 +8,7 @@ namespace ConnectFourTests.Unit.Validators
 {
     public class BaseGameVictoryValidatorTests
     {
-        protected IGameVictoryValidator m_GameVictoryValidator;
+        protected IGameValidator m_GameVictoryValidator;
         protected Players m_WinningPlayer = Players.Yellow;
         protected Players m_LosingPlayer = Players.Red;
 

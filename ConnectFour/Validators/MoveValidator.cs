@@ -15,7 +15,7 @@ namespace ConnectFour.Validators
         {
             for (var i = 0; i < gameGrid.Rows; i++)
             {
-                if (gameGrid.Grid[i][gameGrid.Columns - 1] == Players.None)
+                if (gameGrid.Grid[i][column] == Players.None)
                 {
                     return true;
                 }

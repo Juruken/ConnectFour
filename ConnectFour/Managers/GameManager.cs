@@ -33,12 +33,12 @@ namespace ConnectFour.Managers
             Output("Please enter the rows followed by a space and then the columns. e.g. '5 5'.");
 
             var turnCounter = 0;
-
-            input = Console.ReadLine();
-
+            
             // Get Grid Size
             while (true)
             {
+                input = Console.ReadLine();
+
                 if (input == null || input.Length != 3)
                 {
                     Output("Invalid input, please enter the rows followed by a space and then the columns. e.g. '5 5'");
@@ -77,6 +77,7 @@ namespace ConnectFour.Managers
                 
                 while (true)
                 {
+                    int column;
                     // Get moes until a valid move is entered
                     while (true)
                     {
@@ -85,8 +86,9 @@ namespace ConnectFour.Managers
                         input = Console.ReadLine();
 
                         // Valid Input
-                        if (input != null && input.Length != 1 && char.IsNumber(input[0]))
+                        if (input != null && input.Length == 1 && char.IsNumber(input[0]))
                         {
+                            column = int.Parse(input[0].ToString());
                             break;
                         }
 
@@ -95,10 +97,10 @@ namespace ConnectFour.Managers
 
 
                     // Validate move column
-                    if (m_MoveValidator.Validate(gameGrid, input[0]))
+                    if (m_MoveValidator.Validate(gameGrid, column))
                     {
                         // Apply valid move
-                        gameGrid.AddToken(input[0], currentPlayer);
+                        gameGrid.AddToken(column, currentPlayer);
                         break;
                     }
 
@@ -108,7 +110,7 @@ namespace ConnectFour.Managers
                 // Check for Victory
                 if (IsVictory(gameGrid, currentPlayer))
                 {
-                    Output(string.Format("{0} player is victorious!"));
+                    Output(string.Format("{0} player is victorious!", playerName));
                     break;
                 }
 
@@ -121,6 +123,9 @@ namespace ConnectFour.Managers
 
                 WriteGridToConsole(gameGrid);
             }
+
+            Output("Press any key to close the program.");
+            Console.ReadLine();
         }
 
         private bool IsDraw(GameGrid gameGrid)
@@ -151,7 +156,26 @@ namespace ConnectFour.Managers
 
         private void WriteGridToConsole(GameGrid gameGrid)
         {
-            // Console.WriteLine(output);
+            Dictionary<Players, string> playerOutputString = new Dictionary<Players, string>
+            {
+                { Players.Yellow , "y" },
+                { Players.Red, "r" },
+                { Players.None, "o" },
+            };
+
+            Console.WriteLine("-------------------------------------------------");
+
+            for (int i = gameGrid.Rows - 1; i >= 0; i--)
+            {
+                for (int j = 0; j < gameGrid.Columns; j++)
+                {
+                    Console.Write( string.Format(" {0} ", playerOutputString[gameGrid.Grid[i][j]]) );
+                }
+                
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("-------------------------------------------------");
         }
     }
 }

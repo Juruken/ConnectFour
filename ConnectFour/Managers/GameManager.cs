@@ -59,6 +59,8 @@ namespace ConnectFour.Managers
             // trim whie space.
             gameGrid = new GameGrid(rows, columns);
 
+            WriteGridToConsole(gameGrid);
+
             while (true)
             {
                 turnCounter++;
@@ -164,9 +166,11 @@ namespace ConnectFour.Managers
             };
 
             Console.WriteLine("-------------------------------------------------");
-
+            
             for (int i = gameGrid.Rows - 1; i >= 0; i--)
             {
+                Console.WriteLine("      ");
+
                 for (int j = 0; j < gameGrid.Columns; j++)
                 {
                     Console.Write( string.Format(" {0} ", playerOutputString[gameGrid.Grid[i][j]]) );

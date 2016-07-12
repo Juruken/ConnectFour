@@ -16,6 +16,8 @@ namespace ConnectFour.DataModel
             {
                 Grid[i] = new Players[Columns];
             }
+
+            ResetGrid();
         }
         
         public int Rows { get; set; }

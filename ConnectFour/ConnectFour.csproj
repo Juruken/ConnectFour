@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Constants\Players.cs" />
     <Compile Include="DataModel\GameGrid.cs" />
+    <Compile Include="Factories\GameFactory.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\DiagonalGameVictoryValidator.cs" />

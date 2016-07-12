@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ConnectFour.Constants;
 using ConnectFour.Validators;
 using NUnit.Framework;
 
@@ -34,7 +35,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test, TestCaseSource(typeof(VerticalVictoryTestDataProvider), "GetVictoryNotDetectedTestCases")]
         public void TestVictoryNotDetected(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
-            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate, m_WinningPlayer);
+            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsFalse(result);
         }

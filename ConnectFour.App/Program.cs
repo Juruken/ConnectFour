@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConnectFour.App
+﻿namespace ConnectFour.App
 {
     class Program
     {
         static void Main(string[] args)
         {
             // Call Game Manager
+            // var gameFactory = new GameFactory();
+            // var gameManager = gameFactory.CreateGameManager();
+            // gameManager.StartGame();
         }
     }
 }

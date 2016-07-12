@@ -10,7 +10,12 @@ namespace ConnectFour.DataModel
             Rows = rows;
             Columns = columns;
 
-            CreateGrid();
+            Grid = new Players[Rows][];
+
+            for (var i = 0; i < Rows; i++)
+            {
+                Grid[i] = new Players[Columns];
+            }
         }
         
         public int Rows { get; set; }
@@ -18,26 +23,18 @@ namespace ConnectFour.DataModel
 
         public Players[][] Grid { get; set; }
 
-        private void CreateGrid()
+        public void ResetGrid()
         {
-            int i, j;
-            Grid = new Players[Rows][];
-
-            for (i = 0; i < Rows; i++)
+            // Initialise the grid to blank
+            for (var i = 0; i < Rows; i++)
             {
-                Grid[i] = new Players[Columns];
-            }
-
-            // Initialise the grid to blank./
-            for (i = 0; i < Rows; i++)
-            {
-                for (j = 0; j < Columns; j++)
+                for (var j = 0; j < Columns; j++)
                 {
                     Grid[i][j] = Players.None;
                 }
             }
         }
-
+        
         public void AddToken(int column, Players player)
         {
             for (int i = 0; i < Rows; i++)

@@ -18,7 +18,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test, TestCaseSource(typeof(DiagonalDownAndRightVictoryTestDataProvider), "BottomLeftTestCases")]
         public void TestVictoryDetectedDownAndRight(int rows, int columns, List<Tuple<int,int>> rowColumnToPopulate)
         {
-            var gameGrid = CreateGameGrid(rows, columns, rowColumnToPopulate);
+            var gameGrid = CreateGameGrid(rows, columns, rowColumnToPopulate, m_WinningPlayer);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsTrue(result);
         }
@@ -26,7 +26,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test, TestCaseSource(typeof(DiagonalDownAndRightVictoryTestDataProvider), "TopLeftTestCases")]
         public void TestVictoryDetectedUpAndRight(int rows, int columns, List<Tuple<int, int>> rowColumnToPopulate)
         {
-            var gameGrid = CreateGameGrid(rows, columns, rowColumnToPopulate);
+            var gameGrid = CreateGameGrid(rows, columns, rowColumnToPopulate, m_WinningPlayer);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsTrue(result);
         }

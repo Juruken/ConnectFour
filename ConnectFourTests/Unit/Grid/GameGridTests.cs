@@ -1,18 +1,15 @@
-﻿using ConnectFour.Constants;
+﻿using System;
+using System.Collections.Generic;
+using Castle.Components.DictionaryAdapter;
+using ConnectFour.Constants;
 using ConnectFour.DataModel;
 using NUnit.Framework;
 
 namespace ConnectFourTests.Unit.Grid
 {
     [TestFixture]
-    public class GameGridTests
+    public class GameGridTests : BaseGameTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            
-        }
-
         [TestCase(5, 5)]
         [TestCase(5, 6)]
         [TestCase(6, 5)]
@@ -46,6 +43,40 @@ namespace ConnectFourTests.Unit.Grid
                     var value = gameGrid.Grid[i][j];
                     Assert.AreEqual(Players.None, value);
                 }
+            }
+        }
+
+        [TestCase(5, 5, 1, 0)]
+        [TestCase(5, 5, 1, 1)]
+        [TestCase(5, 5, 1, 2)]
+        [TestCase(5, 5, 1, 3)]
+        [TestCase(5, 5, 1, 4)]
+        public void TestAddToken(int rows, int columns, int countersToAdd, int columnToPick)
+        {
+            var gameGrid = CreateGameGrid(rows, columns, new EditableList<Tuple<int, int>>());
+
+            for (int i = 0; i < countersToAdd; i++)
+            {
+                Assert.AreEqual(Players.None, gameGrid.Grid[i][columnToPick]);
+
+                gameGrid.AddToken(columnToPick, Players.Yellow);
+
+                Assert.AreEqual(Players.Yellow, gameGrid.Grid[i][columnToPick]);
+            }
+        }
+
+        [TestCase(5, 5, 1, 0)]
+        [TestCase(5, 5, 1, 1)]
+        [TestCase(5, 5, 1, 2)]
+        [TestCase(5, 5, 1, 3)]
+        [TestCase(5, 5, 1, 4)]
+        public void TestErrorOnAddToken(int rows, int columns, int countersToAdd, int columnToPick)
+        {
+            var gameGrid = CreateGameGrid(rows, columns, new List<int>() { 0, 1, 2, 3, 4 }, new List<int>() { 0, 1, 2, 3, 4 }, Players.Yellow);
+
+            for (int i = 0; i < countersToAdd; i++)
+            {
+                Assert.That(() => gameGrid.AddToken(columnToPick, Players.Yellow), Throws.ArgumentException);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test, TestCaseSource(typeof(HorizontalVictoryTestDataProvider), "GetVictoryDetectedTestCases")]
         public void TestVictoryDetected(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
-            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
+            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate, m_WinningPlayer);
 
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsTrue(result);
@@ -27,7 +27,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test, TestCaseSource(typeof(HorizontalVictoryTestDataProvider), "GetVictoryDetectedTestCases")]
         public void TestVictoryNotDetectedForLosingPlayer(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
-            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
+            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate, m_WinningPlayer);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_LosingPlayer);
             Assert.IsFalse(result);
         }
@@ -35,7 +35,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test, TestCaseSource(typeof(HorizontalVictoryTestDataProvider), "GetVictoryNotDetectedTestCases")]
         public void TestVictoryNotDetected(int rows, int columns, List<int> rowsToPopulate, List<int> columnsToPopulate)
         {
-            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate);
+            var gameGrid = CreateGameGrid(rows, columns, rowsToPopulate, columnsToPopulate, m_WinningPlayer);
             var result = m_GameVictoryValidator.Validate(gameGrid, m_WinningPlayer);
             Assert.IsFalse(result);
         }

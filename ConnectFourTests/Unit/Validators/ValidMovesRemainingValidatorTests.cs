@@ -27,7 +27,7 @@ namespace ConnectFourTests.Unit.Validators
         [Test]
         public void TestNoValidMoves()
         {
-            var gameGrid = CreateGameGrid(5, 5, new List<int> { 0, 1, 2, 3, 4 }, new List<int> { 0, 1, 2, 3, 4 });
+            var gameGrid = CreateGameGrid(5, 5, new List<int> { 0, 1, 2, 3, 4 }, new List<int> { 0, 1, 2, 3, 4 }, m_WinningPlayer);
             var result = m_GameVictoryValidator.Validate(gameGrid, Players.None);
             Assert.IsFalse(result);
         }

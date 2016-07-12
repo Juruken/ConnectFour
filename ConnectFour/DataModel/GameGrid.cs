@@ -1,4 +1,5 @@
-﻿using ConnectFour.Constants;
+﻿using System;
+using ConnectFour.Constants;
 
 namespace ConnectFour.DataModel
 {
@@ -35,6 +36,20 @@ namespace ConnectFour.DataModel
                     Grid[i][j] = Players.None;
                 }
             }
+        }
+
+        public void AddToken(int column, Players player)
+        {
+            for (int i = 0; i < Rows; i++)
+            {
+                if (Grid[i][column] == Players.None)
+                {
+                    Grid[i][column] = player;
+                    return;
+                }
+            }
+
+            throw new ArgumentException("Invalid move, column is full.");
         }
     }
 }

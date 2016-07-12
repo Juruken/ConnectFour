@@ -8,12 +8,14 @@ namespace ConnectFour.Managers
 {
     public class GameManager
     {
+        private readonly IGridCreationValidator m_GridCreationValidator;
         private readonly List<IGameValidator> m_GameVictoryValidators;
         private readonly IGameValidator m_ValidMovesRemainingValidator;
         private readonly IMoveValidator m_MoveValidator;
 
-        public GameManager(IGameValidator validMovesRemainingValidator, IMoveValidator moveValidator, List<IGameValidator> victoryValidators)
+        public GameManager(IGridCreationValidator gridCreationValidator, IGameValidator validMovesRemainingValidator, IMoveValidator moveValidator, List<IGameValidator> victoryValidators)
         {
+            m_GridCreationValidator = gridCreationValidator;
             m_ValidMovesRemainingValidator = validMovesRemainingValidator;
             m_GameVictoryValidators = victoryValidators;
             m_MoveValidator = moveValidator;
@@ -21,23 +23,40 @@ namespace ConnectFour.Managers
         
         public void PlayGame()
         {
-            string input = "";
-            string playerName = "";
-            Players currentPlayer = Players.None;
+            int rows, columns;
+            string input, playerName;
+            Players currentPlayer;
             GameGrid gameGrid;
+
+            Output("Welcome to Connect Four!");
+            Output("Please enter the board dimensions. You may have between 5-6 rows and 5-7 columns.");
+            Output("Please enter the rows followed by a space and then the columns. e.g. '5 5'.");
 
             var turnCounter = 0;
 
+            input = Console.ReadLine();
+
             // Get Grid Size
+            while (true)
+            {
+                if (input == null || input.Length != 3)
+                {
+                    Output("Invalid input, please enter the rows followed by a space and then the columns. e.g. '5 5'");
+                    continue;
+                }
+
+                if (m_GridCreationValidator.Validate(input[0].ToString(), input[2].ToString()))
+                {
+                    rows = int.Parse(input[0].ToString());
+                    columns = int.Parse(input[2].ToString());
+                    break;
+                }
+
+                Output("Invalid input, please enter the rows followed by a space and then the columns. e.g. '5 5'");
+            }
 
             // Start Game
             // trim whie space.
-            input = input.Replace(" ", "");
-            var gameSize = input.Split(',');
-
-            var rows = int.Parse(gameSize[0]);
-            var columns = int.Parse(gameSize[1]);
-
             gameGrid = new GameGrid(rows, columns);
 
             while (true)
@@ -55,12 +74,36 @@ namespace ConnectFour.Managers
                     currentPlayer = Players.Yellow;
                     playerName = "Yellow";
                 }
-
-                Output(string.Format("{0} player, please pick a column between 0 and {1}", playerName, gameGrid.Columns - 1));
-
-                // Get moes until a valid move is entered
                 
-                // Apply valid move
+                while (true)
+                {
+                    // Get moes until a valid move is entered
+                    while (true)
+                    {
+                        Output(string.Format("{0} player, please pick a column between 0 and {1}", playerName, gameGrid.Columns - 1));
+
+                        input = Console.ReadLine();
+
+                        // Valid Input
+                        if (input != null && input.Length != 1 && char.IsNumber(input[0]))
+                        {
+                            break;
+                        }
+
+                        Output("Invalid input!");
+                    }
+
+
+                    // Validate move column
+                    if (m_MoveValidator.Validate(gameGrid, input[0]))
+                    {
+                        // Apply valid move
+                        gameGrid.AddToken(input[0], currentPlayer);
+                        break;
+                    }
+
+                    Output("Move is not valid");
+                }
 
                 // Check for Victory
                 if (IsVictory(gameGrid, currentPlayer))
@@ -75,6 +118,8 @@ namespace ConnectFour.Managers
                     Output("Draw! Better luck next time.");
                     break;
                 }
+
+                WriteGridToConsole(gameGrid);
             }
         }
 

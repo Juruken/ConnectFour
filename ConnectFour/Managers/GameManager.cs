@@ -52,7 +52,7 @@ namespace ConnectFour.Managers
                     break;
                 }
 
-                Output("Invalid input, please enter the rows followed by a space and then the columns. e.g. '5 5'");
+                Output("Invalid board size! You may have between 5-6 rows and 5-7 columns.");
             }
 
             // Start Game
@@ -83,7 +83,7 @@ namespace ConnectFour.Managers
                     // Get moes until a valid move is entered
                     while (true)
                     {
-                        Output(string.Format("{0} player, please pick a column between 0 and {1}", playerName, gameGrid.Columns - 1));
+                        Output(string.Format("{0} player, please pick a column between 1 and {1}", playerName, gameGrid.Columns));
 
                         input = Console.ReadLine();
 
@@ -99,15 +99,17 @@ namespace ConnectFour.Managers
 
 
                     // Validate move column
-                    if (m_MoveValidator.Validate(gameGrid, column))
+                    if (m_MoveValidator.Validate(gameGrid, column - 1))
                     {
                         // Apply valid move
-                        gameGrid.AddToken(column, currentPlayer);
+                        gameGrid.AddToken(column - 1, currentPlayer);
                         break;
                     }
 
                     Output("Move is not valid");
                 }
+
+                WriteGridToConsole(gameGrid);
 
                 // Check for Victory
                 if (IsVictory(gameGrid, currentPlayer))
@@ -122,8 +124,6 @@ namespace ConnectFour.Managers
                     Output("Draw! Better luck next time.");
                     break;
                 }
-
-                WriteGridToConsole(gameGrid);
             }
 
             Output("Press any key to close the program.");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ConnectFour.Constants;
 using ConnectFour.DataModel;
+using ConnectFour.Providers;
 using ConnectFour.Validators;
 
 namespace ConnectFour.Managers
@@ -12,13 +13,18 @@ namespace ConnectFour.Managers
         private readonly List<IGameValidator> m_GameVictoryValidators;
         private readonly IGameValidator m_ValidMovesRemainingValidator;
         private readonly IMoveValidator m_MoveValidator;
+        private readonly IInputProvider m_InputProvider;
+        private readonly IOutputProvider m_OutputProvider;
 
-        public GameManager(IGridCreationValidator gridCreationValidator, IGameValidator validMovesRemainingValidator, IMoveValidator moveValidator, List<IGameValidator> victoryValidators)
+        public GameManager(IGridCreationValidator gridCreationValidator, IGameValidator validMovesRemainingValidator, IMoveValidator moveValidator, List<IGameValidator> victoryValidators, 
+                            IInputProvider inputProvider, IOutputProvider outputProvider)
         {
             m_GridCreationValidator = gridCreationValidator;
             m_ValidMovesRemainingValidator = validMovesRemainingValidator;
             m_GameVictoryValidators = victoryValidators;
             m_MoveValidator = moveValidator;
+            m_InputProvider = inputProvider;
+            m_OutputProvider = outputProvider;
         }
         
         public void PlayGame()
@@ -28,20 +34,20 @@ namespace ConnectFour.Managers
             Players currentPlayer;
             GameGrid gameGrid;
 
-            Output("Welcome to Connect Four!");
-            Output("Please enter the board dimensions. You may have between 5-6 rows and 5-7 columns.");
-            Output("Please enter the rows followed by a space and then the columns. e.g. '5 5'.");
+            m_OutputProvider.Output("Welcome to Connect Four!");
+            m_OutputProvider.Output("Please enter the board dimensions. You may have between 5-6 rows and 5-7 columns.");
+            m_OutputProvider.Output("Please enter the rows followed by a space and then the columns. e.g. '5 5'.");
 
             var turnCounter = 0;
             
             // Get Grid Size
             while (true)
             {
-                input = Console.ReadLine();
+                input = m_InputProvider.GetInput();
 
                 if (input == null || input.Length != 3)
                 {
-                    Output("Invalid input, please enter the rows followed by a space and then the columns. e.g. '5 5'");
+                    m_OutputProvider.Output("Invalid input, please enter the rows followed by a space and then the columns. e.g. '5 5'");
                     continue;
                 }
 
@@ -52,7 +58,7 @@ namespace ConnectFour.Managers
                     break;
                 }
 
-                Output("Invalid board size! You may have between 5-6 rows and 5-7 columns.");
+                m_OutputProvider.Output("Invalid board size! You may have between 5-6 rows and 5-7 columns.");
             }
 
             // Start Game
@@ -83,9 +89,9 @@ namespace ConnectFour.Managers
                     // Get moes until a valid move is entered
                     while (true)
                     {
-                        Output(string.Format("{0} player, please pick a column between 1 and {1}", playerName, gameGrid.Columns));
+                        m_OutputProvider.Output(string.Format("{0} player, please pick a column between 1 and {1}", playerName, gameGrid.Columns));
 
-                        input = Console.ReadLine();
+                        input = m_InputProvider.GetInput();
 
                         // Valid Input
                         if (input != null && input.Length == 1 && char.IsNumber(input[0]))
@@ -94,7 +100,7 @@ namespace ConnectFour.Managers
                             break;
                         }
 
-                        Output("Invalid input!");
+                        m_OutputProvider.Output("Invalid input!");
                     }
 
 
@@ -106,7 +112,7 @@ namespace ConnectFour.Managers
                         break;
                     }
 
-                    Output("Move is not valid");
+                    m_OutputProvider.Output("Move is not valid");
                 }
 
                 WriteGridToConsole(gameGrid);
@@ -114,20 +120,20 @@ namespace ConnectFour.Managers
                 // Check for Victory
                 if (IsVictory(gameGrid, currentPlayer))
                 {
-                    Output(string.Format("{0} player is victorious!", playerName));
+                    m_OutputProvider.Output(string.Format("{0} player is victorious!", playerName));
                     break;
                 }
 
                 // Check for Draw
                 if (IsDraw(gameGrid))
                 {
-                    Output("Draw! Better luck next time.");
+                    m_OutputProvider.Output("Draw! Better luck next time.");
                     break;
                 }
             }
 
-            Output("Press any key to close the program.");
-            Console.ReadLine();
+            m_OutputProvider.Output("Press any key to close the program.");
+            m_InputProvider.GetInput();
         }
 
         private bool IsDraw(GameGrid gameGrid)
@@ -150,36 +156,11 @@ namespace ConnectFour.Managers
 
             return false;
         }
-
-        private void Output(string output)
-        {
-            Console.WriteLine(output);
-        }
-
+        
+        // TODO: Make this use the OutputProvider
         private void WriteGridToConsole(GameGrid gameGrid)
         {
-            Dictionary<Players, string> playerOutputString = new Dictionary<Players, string>
-            {
-                { Players.Yellow , "y" },
-                { Players.Red, "r" },
-                { Players.None, "o" },
-            };
-
-            Console.WriteLine("-------------------------------------------------");
             
-            for (int i = gameGrid.Rows - 1; i >= 0; i--)
-            {
-                Console.WriteLine("      ");
-
-                for (int j = 0; j < gameGrid.Columns; j++)
-                {
-                    Console.Write( string.Format(" {0} ", playerOutputString[gameGrid.Grid[i][j]]) );
-                }
-                
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("-------------------------------------------------");
         }
     }
 }

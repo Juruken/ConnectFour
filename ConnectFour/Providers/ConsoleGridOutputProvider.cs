@@ -16,21 +16,23 @@ namespace ConnectFour.Providers
                 { Players.None, "o" },
             };
 
-            Console.WriteLine("-------------------------------------------------");
+            var blankString = "            ";
+
+            Console.WriteLine($"{blankString}---------------");
 
             for (var i = gameGrid.Rows - 1; i >= 0; i--)
             {
-                Console.WriteLine("      ");
+                Console.Write(blankString);
 
                 for (var j = 0; j < gameGrid.Columns; j++)
                 {
                     Console.Write($" {playerOutputString[gameGrid.Grid[i][j]]} ");
                 }
 
-                Console.WriteLine("      ");
+                Console.WriteLine("");
             }
 
-            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine($"{blankString}---------------");
         }
     }
 }

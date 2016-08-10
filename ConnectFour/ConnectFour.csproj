@@ -47,8 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ConsoleInputProvider.cs" />
     <Compile Include="Providers\ConsoleOutputProvider.cs" />
-    <Compile Include="Providers\GridOutputProvider.cs" />
-    <Compile Include="Providers\IGameGridProvider.cs" />
+    <Compile Include="Providers\ConsoleGridOutputProvider.cs" />
     <Compile Include="Providers\IGridOutputProvider.cs" />
     <Compile Include="Providers\IInputProvider.cs" />
     <Compile Include="Providers\IOutputProvider.cs" />

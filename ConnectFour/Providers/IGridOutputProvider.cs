@@ -1,7 +1,9 @@
-﻿namespace ConnectFour.Providers
+﻿using ConnectFour.DataModel;
+
+namespace ConnectFour.Providers
 {
     public interface IGridOutputProvider
     {
-        void Output();
+        void Output(GameGrid gameGrid);
     }
 }

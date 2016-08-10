@@ -9,21 +9,15 @@ namespace ConnectFour.Factories
     {
         private readonly IOutputProvider m_OutputProvider;
         private readonly IInputProvider m_InputProvider;
-        private readonly IGameGridProvider m_GameGridProvider;
+        private readonly IGridOutputProvider m_GridOutputProvider;
 
-        public GameFactory(IInputProvider inputProvider, IOutputProvider outputProvider,
-            IGameGridProvider gameGridProvider)
+        public GameFactory(IInputProvider inputProvider, IOutputProvider outputProvider, IGridOutputProvider gridOutputProvider)
         {
             m_InputProvider = inputProvider;
             m_OutputProvider = outputProvider;
-            m_GameGridProvider = gameGridProvider;
+            m_GridOutputProvider = gridOutputProvider;
         }
-
-        public GridOutputProvider CreateGridOutputProvider()
-        {
-            return new GridOutputProvider(m_OutputProvider, m_GameGridProvider);
-        }
-
+        
         public GameManager CreateGameManager()
         {
             return new GameManager(
@@ -36,8 +30,9 @@ namespace ConnectFour.Factories
                     new HorizontalGameVictoryValidator(),
                     new DiagonalGameVictoryValidator()
                 },
-                new ConsoleInputProvider(),
-                new ConsoleOutputProvider()
+                m_InputProvider,
+                m_OutputProvider,
+                m_GridOutputProvider
             );
         }
     }

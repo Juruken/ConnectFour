@@ -15,9 +15,10 @@ namespace ConnectFour.Managers
         private readonly IMoveValidator m_MoveValidator;
         private readonly IInputProvider m_InputProvider;
         private readonly IOutputProvider m_OutputProvider;
+        private readonly IGridOutputProvider m_GridOutputProvider;
 
         public GameManager(IGridCreationValidator gridCreationValidator, IGameValidator validMovesRemainingValidator, IMoveValidator moveValidator, List<IGameValidator> victoryValidators, 
-                            IInputProvider inputProvider, IOutputProvider outputProvider)
+                            IInputProvider inputProvider, IOutputProvider outputProvider, IGridOutputProvider gridOutputProvider)
         {
             m_GridCreationValidator = gridCreationValidator;
             m_ValidMovesRemainingValidator = validMovesRemainingValidator;
@@ -25,6 +26,7 @@ namespace ConnectFour.Managers
             m_MoveValidator = moveValidator;
             m_InputProvider = inputProvider;
             m_OutputProvider = outputProvider;
+            m_GridOutputProvider = gridOutputProvider;
         }
         
         public void PlayGame()
@@ -63,10 +65,12 @@ namespace ConnectFour.Managers
 
             // Start Game
             // trim whie space.
+            // TODO: Inject a IGameCreator
             gameGrid = new GameGrid(rows, columns);
 
-            WriteGridToConsole(gameGrid);
+            m_GridOutputProvider.Output(gameGrid);
 
+            // TODO: Implement StatePattern
             while (true)
             {
                 turnCounter++;
@@ -108,6 +112,7 @@ namespace ConnectFour.Managers
                     if (m_MoveValidator.Validate(gameGrid, column - 1))
                     {
                         // Apply valid move
+
                         gameGrid.AddToken(column - 1, currentPlayer);
                         break;
                     }
@@ -115,7 +120,7 @@ namespace ConnectFour.Managers
                     m_OutputProvider.Output("Move is not valid");
                 }
 
-                WriteGridToConsole(gameGrid);
+                m_GridOutputProvider.Output(gameGrid);
 
                 // Check for Victory
                 if (IsVictory(gameGrid, currentPlayer))
@@ -136,6 +141,7 @@ namespace ConnectFour.Managers
             m_InputProvider.GetInput();
         }
 
+        // TODO: State Pattern
         private bool IsDraw(GameGrid gameGrid)
         {
             if (m_ValidMovesRemainingValidator.Validate(gameGrid, Players.None))
@@ -145,7 +151,7 @@ namespace ConnectFour.Managers
 
             return true;
         }
-
+        // TODO: State Pattern
         private bool IsVictory(GameGrid gameGrid, Players currentPlayer)
         {
             foreach (var victoryValidator in m_GameVictoryValidators)
@@ -155,12 +161,6 @@ namespace ConnectFour.Managers
             }
 
             return false;
-        }
-        
-        // TODO: Make this use the OutputProvider
-        private void WriteGridToConsole(GameGrid gameGrid)
-        {
-            
         }
     }
 }
